@@ -50,12 +50,15 @@ function draw() {
 function keyPressed() {
 	if (keyCode == LEFT_ARROW) {
 		direction = -1;
-
-		// if (audio_right.isPlaying()) audio_right.stop();
-		// if (!audio_left.isPlaying()) audio_left.play();
 	} else if (keyCode == RIGHT_ARROW) {
 		direction = 1;
-		// if (audio_left.isPlaying()) audio_left.stop();
-		// if (!audio_right.isPlaying()) audio_right.play();
+	} else if (key == ' ') {
+		if (audio_left.isPlaying() && audio_right.isPlaying()) { 
+			audio_left.stop();
+			audio_right.stop();
+		} else if (!audio_left.isPlaying() && !audio_right.isPlaying()) {
+			audio_left.play();
+			audio_right.play();
+		}
 	}
 }
