@@ -3,11 +3,11 @@
 	<title>Relaxation Machine</title>
 	<script type="text/javascript" src="js/p5.js"></script>
 	<script type="text/javascript" src="js/p5.sound.js"></script>
-	<link rel="stylesheet" type="text/css" href="reset.min.css">
+s	<link rel="stylesheet" type="text/css" href="reset.min.css">
 	<style>
 		body {
-			background: url('http://i318.photobucket.com/albums/mm419/encelade2/NASA39.jpg');
-			background-size: 100%;
+			background: url('https://45.media.tumblr.com/c039e359001b9fe3e1af1a026c38d678/tumblr_nq0w4yj2CO1s030vgo1_500.gif');
+			background-size: 100% 130%;
 		}
 
 		#canvas-parent {
@@ -16,19 +16,34 @@
 			left: 0;
 		}
 
-		#text-area {
+		#footer {
 			position: fixed;
-			bottom: 2em;
+			bottom: 0.5em;
 			width: 100%;
 			font-size: 2em;
+			line-height: 1em;
 			text-align: center;
 			color: white;
 		}
+
+		#text-area {
+			width: 100%;
+		}
+
+		#controls {
+			padding: 0.25em;
+		}
+
 	</style>
 </head>
 <body>
 	<div id="canvas-parent"></div>
-	<div id="text-area">inhale</div>
+	<div id="footer">
+		<div id="text-area">inhale</div>
+		<div id="controls">
+			<input id="rate-slider" type="range" min="0.0" max="0.03" value="0.015" step="0.0001"></input>
+		</siv>
+	</div>
 	<script type="text/javascript" src="js/sketch.js"></script>
 </body>
 </html>

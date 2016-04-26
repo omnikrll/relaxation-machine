@@ -4,9 +4,11 @@ var samples = { l: null, r: null },
 
 // sphere rotation params
 var angle = 0,
+	speed = 0.015,
 	direction = 1;
 
-var textArea = document.getElementById('text-area');
+var textArea = document.getElementById('text-area'),
+	rateSlider = document.getElementById('rate-slider');
 
 function preload() {
 	samples.l = loadSound('audio/audio_left.wav');
@@ -45,6 +47,8 @@ function startAudio() {
 }
 
 function draw() {
+	speed = rateSlider.value;
+
 	var sine = sin(angle),
 		cosine = cos(angle),
 		x = sine * 200,
@@ -52,9 +56,7 @@ function draw() {
 		size_a = 50 + cosine * 30,
 		size_b = 50 + cosine * -30;
 
-	angle += 0.03 * direction;
-
-	console.log(abs(ceil(sine)));
+	angle += speed * direction;
 
 	if (abs(ceil(sine)) == 0) {
 		textArea.innerHTML = 'exhale';
