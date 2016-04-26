@@ -1,10 +1,13 @@
 var audio_left,
 	audio_right;
 
-function setup() {
-	createCanvas((windowWidth - 20), (windowHeight - 20), WEBGL);
+function preload() {
 	audio_left = loadSound('audio/audio_left.wav', startAudioLeft);
 	audio_right = loadSound('audio/audio_right.wav', startAudioRight);	
+}
+
+function setup() {
+	createCanvas((windowWidth - 20), (windowHeight - 20), WEBGL);
 }
 
 function startAudioLeft(audio_left) {
