@@ -1,43 +1,57 @@
-var audio_left,
-	audio_right;
+// audio params
+var samples = { l: null, r: null },
+	oscs = { l: null, r: null };
 
-function preload() {
-	audio_left = loadSound('audio/audio_left.wav');
-	audio_right = loadSound('audio/audio_right.wav');
-}
-
-function setup() {
-	createCanvas((windowWidth - 20), (windowHeight - 20), WEBGL);
-	startAudioLeft();
-	startAudioRight();
-}
-
-function startAudioLeft() {
-	audio_left.loop();
-	audio_left.pan(-0.4);
-	audio_left.setVolume(0);
-	audio_left.setVolume(1,3);
-	// audio_left.play();
-}
-
-function startAudioRight() {
-	audio_right.loop();
-	audio_right.pan(0.4);
-	audio_right.setVolume(0);
-	audio_right.setVolume(1,3);
-	// audio_right.play();
-}
-
+// sphere rotation params
 var angle = 0,
 	direction = 1;
 
+var textArea = document.getElementById('text-area');
+
+function preload() {
+	samples.l = loadSound('audio/audio_left.wav');
+	samples.r = loadSound('audio/audio_right.wav');
+}
+
+function setup() {
+	var canvas = createCanvas((windowWidth), (windowHeight), WEBGL);
+	canvas.parent('canvas-parent');
+	startAudio();
+	console.log(textArea.innerHTML);
+}
+
+function startAudio() {
+	samples.l.loop();
+	samples.l.pan(-0.4);
+	samples.l.setVolume(0.1)
+
+	samples.r.loop();
+	samples.r.pan(-0.4);
+	samples.r.setVolume(0.1);
+
+	oscs.l = new p5.Oscillator();
+	oscs.l.setType('sine');
+	oscs.l.start();
+	oscs.l.freq(56);
+	oscs.l.pan(-1);
+	oscs.l.amp(0.2);
+
+	oscs.r = new p5.Oscillator();
+	oscs.r.setType('sine');
+	oscs.r.start();
+	oscs.r.freq(66);
+	oscs.r.pan(1);
+	oscs.r.amp(0.2);
+}
+
+
 function draw() {
-	var x = sin(angle)*200,
-		y = cos(angle)*80;
-
-	var size_a = 50 + cos(angle) * 30,
-		size_b = 50 + cos(angle) * -30;
-
+	var _sin = sin(angle),
+		_cos = cos(angle),
+		x = _sin * 200,
+		y = _cos * 80,
+		size_a = 50 + _cos * 30,
+		size_b = 50 + _cos * -30;
 
 	angle += 0.0175 * direction;
 
@@ -58,12 +72,16 @@ function keyPressed() {
 	} else if (keyCode == RIGHT_ARROW) {
 		direction = 1;
 	} else if (key == ' ') {
-		if (audio_left.isPlaying() && audio_right.isPlaying()) { 
-			audio_left.stop();
-			audio_right.stop();
-		} else if (!audio_left.isPlaying() && !audio_right.isPlaying()) {
-			audio_left.play();
-			audio_right.play();
+		if (samples.l.isPlaying() && samples.r.isPlaying()) { 
+			samples.l.stop();
+			samples.r.stop();
+			oscs.l.amp(0);
+			oscs.r.amp(0);
+		} else if (!samples.l.isPlaying() && !samples.r.isPlaying()) {
+			samples.l.play();
+			samples.r.play();
+			oscs.l.amp(0.2);
+			oscs.r.amp(0.2);
 		}
 	}
 }
