@@ -8,8 +8,8 @@ function preload() {
 
 function setup() {
 	createCanvas((windowWidth - 20), (windowHeight - 20), WEBGL);
-	startAudioLeft();
-	startAudioRight();
+	// startAudioLeft();
+	// startAudioRight();
 }
 
 function startAudioLeft() {
@@ -29,24 +29,27 @@ function startAudioRight() {
 }
 
 var angle = 0,
-	direction = 1;
+	direction = 1,
+	breath = 'inhale';
 
 function draw() {
-	var x = sin(angle)*200,
-		y = cos(angle)*80;
+	var sine = sin(angle),
+		cosine = cos(angle),
+		x = sine * 200,
+		y = cosine * 80, 
+		size_a = 50 + cosine * 30,
+		size_b = 50 + cosine * -30;
 
-	var size_a = 50 + cos(angle) * 30,
-		size_b = 50 + cos(angle) * -30;
+	angle += 0.03 * direction;
 
+	breath = floor(abs(angle) / 4) % 2 == 0 ? 'inhale' : 'exhale';
 
-	angle += 0.0175 * direction;
-
-	translate(x, y, 1);
+	translate(x, y, 0);
 	push();
 	sphere(size_a);
 	pop();
 
-	translate((-x *2), (-y * 2), -1);
+	translate((-x * 2), (-y * 2), 0);
 	push();
 	sphere(size_b);
 	pop();
