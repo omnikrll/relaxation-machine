@@ -2,15 +2,17 @@ var audio_left,
 	audio_right;
 
 function preload() {
-	audio_left = loadSound('audio/audio_left.wav', startAudioLeft);
-	audio_right = loadSound('audio/audio_right.wav', startAudioRight);	
+	audio_left = loadSound('audio/audio_left.wav');
+	audio_right = loadSound('audio/audio_right.wav');
 }
 
 function setup() {
 	createCanvas((windowWidth - 20), (windowHeight - 20), WEBGL);
+	startAudioLeft();
+	startAudioRight();
 }
 
-function startAudioLeft(audio_left) {
+function startAudioLeft() {
 	audio_left.loop();
 	audio_left.pan(-0.4);
 	audio_left.setVolume(0);
@@ -18,7 +20,7 @@ function startAudioLeft(audio_left) {
 	// audio_left.play();
 }
 
-function startAudioRight(audio_right) {
+function startAudioRight() {
 	audio_right.loop();
 	audio_right.pan(0.4);
 	audio_right.setVolume(0);
