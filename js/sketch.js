@@ -1,10 +1,8 @@
 var audio_left,
-	audio_right,
-	sphere_left,
-	sphere_right;
+	audio_right;
 
 function setup() {
-	createCanvas(800, 600, WEBGL);
+	createCanvas((windowWidth - 20), (windowHeight - 20), WEBGL);
 	audio_left = loadSound('audio/audio_left.wav', startAudioLeft);
 	audio_right = loadSound('audio/audio_right.wav', startAudioRight);	
 }
@@ -12,72 +10,52 @@ function setup() {
 function startAudioLeft(audio_left) {
 	audio_left.loop();
 	audio_left.pan(-0.4);
-	// audio_left.setVolume(0);
-	// audio_left.setVolume(1,3);
+	audio_left.setVolume(0);
+	audio_left.setVolume(1,3);
 	// audio_left.play();
 }
 
 function startAudioRight(audio_right) {
 	audio_right.loop();
 	audio_right.pan(0.4);
-	// audio_right.setVolume(0);
-	// audio_right.setVolume(1,3);
+	audio_right.setVolume(0);
+	audio_right.setVolume(1,3);
 	// audio_right.play();
 }
 
-var xpos = -100,
-	ypos = 0,
-	xspeed = 1.5,
-	yspeed = 0.75;
+var angle = 0,
+	direction = 1;
 
 function draw() {
-	if (xpos > 100 || xpos < -300) {
-		xspeed *= -1;
-		console.log('x:', xpos, xspeed);
-	}
+	var x = sin(angle)*200,
+		y = cos(angle)*80;
 
-	if (ypos > 30 || ypos < -60) {
-		yspeed *= -1;
-		console.log('y:', ypos, yspeed);
-	}
+	var size_a = 50 + cos(angle) * 30,
+		size_b = 50 + cos(angle) * -30;
 
-	if (keyIsDown(LEFT_ARROW)) {
-		xpos += xspeed;
-		ypos += yspeed;
-	}
 
-	if (keyIsDown(RIGHT_ARROW)) {
-		xpos -= xspeed;
-		ypos -= yspeed;
-	}
+	angle += 0.0175 * direction;
 
-	translate(xpos, ypos, 1);
+	translate(x, y, 1);
 	push();
-	// rotateZ(frameCount * 0.01);
-	// rotateX(frameCount * 0.01);
-	// rotateY(frameCount * 0.01);
-	sphere(80);
+	sphere(size_a);
 	pop();
 
-	translate((-xpos - 80), (-ypos), -1);
+	translate((-x *2), (-y * 2), -1);
 	push();
-	// rotateZ(frameCount * 0.01);
-	// rotateX(frameCount * 0.01);
-	// rotateY(frameCount * 0.01);
-	sphere(40);
+	sphere(size_b);
 	pop();
 }
 
 function keyPressed() {
-	// if (keyCode == LEFT_ARROW) {
-	// 	if (audio_right.isPlaying()) audio_right.stop();
-	// 	if (!audio_left.isPlaying()) audio_left.play();
-	// } else if (keyCode == RIGHT_ARROW) {
-	// 	if (audio_left.isPlaying()) audio_left.stop();
-	// 	if (!audio_right.isPlaying()) audio_right.play();
-	// } else 
-	if (keyCode == DOWN_ARROW) {
-		if (audio_left.isPlaying()) audio_left.stop();
-		if (audio_right.isPlaying()) audio_right.stop();
+	if (keyCode == LEFT_ARROW) {
+		direction = -1;
+
+		// if (audio_right.isPlaying()) audio_right.stop();
+		// if (!audio_left.isPlaying()) audio_left.play();
+	} else if (keyCode == RIGHT_ARROW) {
+		direction = 1;
+		// if (audio_left.isPlaying()) audio_left.stop();
+		// if (!audio_right.isPlaying()) audio_right.play();
 	}
 }
