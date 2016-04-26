@@ -14,7 +14,7 @@ function preload() {
 }
 
 function setup() {
-	var canvas = createCanvas((windowWidth), (windowHeight), WEBGL);
+	var canvas = createCanvas(windowWidth, windowHeight, WEBGL);
 	canvas.parent('canvas-parent');
 	startAudio();
 	console.log(textArea.innerHTML);
@@ -44,23 +44,30 @@ function startAudio() {
 	oscs.r.amp(0.2);
 }
 
-
 function draw() {
-	var _sin = sin(angle),
-		_cos = cos(angle),
-		x = _sin * 200,
-		y = _cos * 80,
-		size_a = 50 + _cos * 30,
-		size_b = 50 + _cos * -30;
+	var sine = sin(angle),
+		cosine = cos(angle),
+		x = sine * 200,
+		y = cosine * 80, 
+		size_a = 50 + cosine * 30,
+		size_b = 50 + cosine * -30;
 
-	angle += 0.0175 * direction;
+	angle += 0.03 * direction;
 
-	translate(x, y, 1);
+	console.log(abs(ceil(sine)));
+
+	if (abs(ceil(sine)) == 0) {
+		textArea.innerHTML = 'exhale';
+	} else if (abs(ceil(sine)) == 1) {
+		textArea.innerHTML = 'inhale';
+	}
+
+	translate(x, y, 0);
 	push();
 	sphere(size_a);
 	pop();
 
-	translate((-x *2), (-y * 2), -1);
+	translate((-x * 2), (-y * 2), 0);
 	push();
 	sphere(size_b);
 	pop();
