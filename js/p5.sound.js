@@ -4528,8 +4528,7 @@ oscillator = function () {
       // this.oscillator.frequency.cancelScheduledValues(now);
       if (rampTime == 0) {
         this.oscillator.frequency.cancelScheduledValues(now);
-        var time = tFromNow + now;
-        this.oscillator.frequency.setValueAtTime(val, time);
+        this.oscillator.frequency.setValueAtTime(val, tFromNow + now);
       } else {
         if (val > 0) {
           this.oscillator.frequency.exponentialRampToValueAtTime(val, tFromNow + rampTime + now);
