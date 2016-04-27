@@ -86,7 +86,10 @@ function draw() {
 		sphere(size_a);
 		pop();
 
-		translate((-x * 2), (-y * 2), 0);
+		x *= -2;
+		y *= -2;
+
+		translate(x, y, 0);
 		push();
 		ambientMaterial(250);
 		sphere(size_b);
