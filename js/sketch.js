@@ -2,6 +2,7 @@
 var textArea = document.getElementById('text-area'),
 	rateSlider = document.getElementById('rate-slider'),
 	buttonContainer = document.getElementById('start-button'),
+	header = document.getElementById('header'),
 	startButton;
 
 // sphere rotation params
@@ -48,6 +49,9 @@ function startSketch() {
 
 	startButton.remove();
 	buttonContainer.parentNode.removeChild(buttonContainer);
+
+	header.style.display = 'block';
+	rateSlider.style.display = 'inline';
 
 	playback = true;
 }
