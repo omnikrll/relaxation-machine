@@ -27,7 +27,6 @@ function setup() {
 	fsButton.mousePressed(toggleFullscreen);
 
 	startAudio();
-	console.log(textArea.innerHTML);
 }
 
 function toggleFullscreen() {
