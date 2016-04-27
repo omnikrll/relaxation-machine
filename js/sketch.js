@@ -18,6 +18,7 @@ function preload() {
 }
 
 function setup() {
+	colorMode(RGB, 255);
 	var canvas = createCanvas(windowWidth, windowHeight, WEBGL);
 	canvas.parent('canvas-parent');
 	startAudio();
@@ -49,6 +50,9 @@ function startAudio() {
 }
 
 function draw() {
+	ambientLight(100);
+	pointLight(200, 200, 200, 120, 240, 0);
+
 	if (playback) {
 		speed = rateSlider.value;
 
@@ -69,11 +73,13 @@ function draw() {
 
 		translate(x, y, 0);
 		push();
+		ambientMaterial(250);
 		sphere(size_a);
 		pop();
 
 		translate((-x * 2), (-y * 2), 0);
 		push();
+		ambientMaterial(250);
 		sphere(size_b);
 		pop();
 	}
