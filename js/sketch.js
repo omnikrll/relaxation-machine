@@ -19,10 +19,20 @@ function preload() {
 
 function setup() {
 	colorMode(RGB, 255);
-	var canvas = createCanvas(windowWidth, windowHeight, WEBGL);
+	var canvas = createCanvas(640, 480, WEBGL);
 	canvas.parent('canvas-parent');
+
+	fsButton = createButton('click for fullscreen');
+	fsButton.parent('fullscreen');
+	fsButton.mousePressed(toggleFullscreen);
+
 	startAudio();
 	console.log(textArea.innerHTML);
+}
+
+function toggleFullscreen() {
+	var fs = fullscreen();
+	fullscreen(!fs);
 }
 
 function startAudio() {
