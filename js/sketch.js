@@ -37,6 +37,7 @@ function setup() {
 	rhodes.sample = loadSound('audio/rhodes.mp3', rhodesReady);
 
 	setupAudio();
+	document.focus();
 }
 
 function synthReady() {
