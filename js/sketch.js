@@ -128,7 +128,7 @@ function setNoiseR() {
 	noiseGens.r.osc.disconnect();
 	noiseGens.r.osc.connect(noiseGens.r.filter);
 	noiseGens.r.osc.start();
-	noiseGens.r.osc.pan(0.9);
+	noiseGens.r.osc.pan(0.8);
 	noiseGens.r.osc.amp(noiseGens.r.env);
 }
 
