@@ -13,8 +13,8 @@ var samples = { l: null, r: null },
 	playback = true;
 
 function preload() {
-	samples.l = loadSound('audio/audio_left.wav');
-	samples.r = loadSound('audio/audio_right.wav');
+	samples.l = loadSound('audio/audio_left.mp3');
+	samples.r = loadSound('audio/audio_right.mp3');
 }
 
 function setup() {
