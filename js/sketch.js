@@ -10,6 +10,8 @@ var angle = 0,
 // audio params
 var samples = { l: null, r: null },
 	oscs = { l: null, r: null },
+	noise = { l: null, r: null },
+	filters = { l: null, r: null},
 	playback = true;
 
 function preload() {
@@ -35,27 +37,51 @@ function setup() {
 // }
 
 function startAudio() {
-	samples.l.loop();
-	samples.l.pan(-0.4);
-	samples.l.setVolume(0.1)
+	// samples.l.loop();
+	// samples.l.pan(-0.4);
+	// samples.l.setVolume(0.1)
 
-	samples.r.loop();
-	samples.r.pan(0.4);
-	samples.r.setVolume(0.1);
+	// samples.r.loop();
+	// samples.r.pan(0.4);
+	// samples.r.setVolume(0.1);
 
 	oscs.l = new p5.Oscillator();
 	oscs.l.setType('sine');
 	oscs.l.start();
-	oscs.l.freq(60);
+	oscs.l.freq(84);
 	oscs.l.pan(-1);
 	oscs.l.amp(0.2);
 
 	oscs.r = new p5.Oscillator();
 	oscs.r.setType('sine');
 	oscs.r.start();
-	oscs.r.freq(68);
+	oscs.r.freq(92);
 	oscs.r.pan(1);
 	oscs.r.amp(0.2);
+
+	filters.l = new p5.BandPass();
+	filters.l.freq(358);
+	filters.l.res(28);
+
+	filters.r = new p5.BandPass();
+	filters.r.freq(362);
+	filters.r.res(28);
+
+	noise.l = new p5.Noise();
+	// noise.l.setType('white');
+	noise.l.disconnect();
+	noise.l.connect(filters.l);
+	noise.l.start();
+	noise.l.pan(-0.7);
+	noise.l.amp(0.7);
+
+	noise.r = new p5.Noise();
+	// noise.r.setType('white');
+	noise.r.disconnect();
+	noise.r.connect(filters.r);
+	noise.r.start();
+	noise.r.pan(0.7);
+	noise.r.amp(0.7);
 }
 
 function draw() {
@@ -67,7 +93,7 @@ function draw() {
 
 		var sine = sin(angle),
 			cosine = cos(angle),
-			x = sine * 200,
+			x = sine * 240,
 			y = cosine * 64, 
 			size_a = 56 + cosine * 32,
 			size_b = 56 + cosine * -32;
@@ -109,16 +135,20 @@ function keyPressed() {
 	if (key == ' ') {
 		if (playback) { 
 			playback = false;
-			samples.l.setVolume(0.0);
-			samples.r.setVolume(0.0);
+			// samples.l.setVolume(0.0);
+			// samples.r.setVolume(0.0);
 			oscs.l.amp(0);
 			oscs.r.amp(0);
+			noise.l.amp(0);
+			noise.r.amp(0);
 		} else {
 			playback = true;
-			samples.l.setVolume(0.1);
-			samples.r.setVolume(0.1);
+			// samples.l.setVolume(0.1);
+			// samples.r.setVolume(0.1);
 			oscs.l.amp(0.2);
 			oscs.r.amp(0.2);
+			noise.l.amp(0.7);
+			noise.r.amp(0.7);
 		}
 	}
 }
