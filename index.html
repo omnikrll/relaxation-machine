@@ -23,17 +23,28 @@
 			z-index: 100;
 		}
 
-		#fullscreen {
+		#start-button {
 			position: fixed;
-			top: 0;
-			right: 0;
-			padding: 0.8em;
+			top: 50%;
+			left: 50%;
+			width: 3em;
+			height: 2em;
+			margin-top: -1em;
+			margin-left: -1.5em;
 			z-index: 100;		
+			text-align: center;
 		}
 
-		#fullscreen button {
+		#start-button button {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			margin: 0;
 			border: 1px solid white;
-			background: transparent;
+			padding: 0;
+			background: #000026;
 			color: white;
 			cursor: pointer;
 		}
@@ -77,16 +88,16 @@
 		<p>slider sets rotation speed<br>
 		left &amp; right arrow keys set rotation direction<br>
 		spacebar to pause<br>
-		if keys aren't working, click anywhere on the page to set focus<br><br>
-		headphones recommended<br><br></p>
+		<!-- if keys aren't working, click anywhere on the page to set focus<br><br> -->
+		<br>headphones recommended<br></p>
 	</div>
 
-	<div id="fullscreen"></div>
+	<div id="start-button">loading</div>
 
 	<div id="canvas-parent"></div>
 
 	<div id="footer">
-		<div id="text-area">inhale</div>
+		<div id="text-area"></div>
 		<div id="controls">
 			<input id="rate-slider" type="range" min="0.001" max="0.05" value="0.015" step="0.0001"></input>
 		</div>

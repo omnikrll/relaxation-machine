@@ -1,6 +1,7 @@
 // dom elements
 var textArea = document.getElementById('text-area'),
-	rateSlider = document.getElementById('rate-slider');
+	rateSlider = document.getElementById('rate-slider'),
+	startButton;
 
 // sphere rotation params
 var angle = 0,
@@ -26,17 +27,29 @@ var synth = {
 		l: { filter: null, osc: null, env: null },
 		r: { filter: null, osc: null, env: null }
 	},
-	playback = true;
+	playback = false;
 
 function setup() {
 	colorMode(RGB, 255);
 	var canvas = createCanvas(640, 480, WEBGL);
 	canvas.parent('canvas-parent');
 
+	startButton = createButton('start');
+	startButton.parent('start-button');
+	startButton.mousePressed(startSketch);
+}
+
+function startSketch() {
 	synth.sample = loadSound('audio/synth.mp3', synthReady);
 	rhodes.sample = loadSound('audio/rhodes.mp3', rhodesReady);
 
 	setupAudio();
+
+	startButton.remove();
+	buttonContainer = document.getElementById('start-button');
+	buttonContainer.parentNode.removeChild(buttonContainer);
+
+	playback = true;
 }
 
 function synthReady() {
