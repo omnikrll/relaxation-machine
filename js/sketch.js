@@ -14,10 +14,10 @@ var samples = { l: null, r: null },
 	filters = { l: null, r: null},
 	playback = true;
 
-function preload() {
-	samples.l = loadSound('audio/audio_left.mp3');
-	samples.r = loadSound('audio/audio_right.mp3');
-}
+// function preload() {
+// 	samples.l = loadSound('audio/audio_left.mp3');
+// 	samples.r = loadSound('audio/audio_right.mp3');
+// }
 
 function setup() {
 	colorMode(RGB, 255);
@@ -68,7 +68,6 @@ function startAudio() {
 	filters.r.res(28);
 
 	noise.l = new p5.Noise();
-	// noise.l.setType('white');
 	noise.l.disconnect();
 	noise.l.connect(filters.l);
 	noise.l.start();
@@ -76,7 +75,6 @@ function startAudio() {
 	noise.l.amp(0.7);
 
 	noise.r = new p5.Noise();
-	// noise.r.setType('white');
 	noise.r.disconnect();
 	noise.r.connect(filters.r);
 	noise.r.start();
@@ -96,7 +94,9 @@ function draw() {
 			x = sine * 240,
 			y = cosine * 64, 
 			size_a = 56 + cosine * 32,
-			size_b = 56 + cosine * -32;
+			size_b = 56 - cosine * 32,
+			res_l = 14 - sine * 11,
+			res_r = 14 + sine * 11;
 
 		angle += speed * direction;
 
@@ -105,6 +105,9 @@ function draw() {
 		} else if (abs(ceil(sine)) == 1) {
 			textArea.innerHTML = 'inhale';
 		}
+
+		filters.l.res(res_l);
+		filters.r.res(res_r);
 
 		translate(x, y, 0);
 		push();
