@@ -22,17 +22,17 @@ function setup() {
 	var canvas = createCanvas(640, 480, WEBGL);
 	canvas.parent('canvas-parent');
 
-	fsButton = createButton('toggle fullscreen');
-	fsButton.parent('fullscreen');
-	fsButton.mousePressed(toggleFullscreen);
+	// fsButton = createButton('toggle fullscreen');
+	// fsButton.parent('fullscreen');
+	// fsButton.mousePressed(toggleFullscreen);
 
 	startAudio();
 }
 
-function toggleFullscreen() {
-	var fs = fullscreen();
-	fullscreen(!fs);
-}
+// function toggleFullscreen() {
+// 	var fs = fullscreen();
+// 	fullscreen(!fs);
+// }
 
 function startAudio() {
 	samples.l.loop();
