@@ -1,6 +1,7 @@
 // dom elements
 var textArea = document.getElementById('text-area'),
 	rateSlider = document.getElementById('rate-slider'),
+	buttonContainer = document.getElementById('start-button'),
 	startButton;
 
 // sphere rotation params
@@ -46,7 +47,6 @@ function startSketch() {
 	setupAudio();
 
 	startButton.remove();
-	buttonContainer = document.getElementById('start-button');
 	buttonContainer.parentNode.removeChild(buttonContainer);
 
 	playback = true;
