@@ -18,9 +18,14 @@ var synth = {
 		sample: null,
 		delay: null
 	},
-	oscs = { l: null, r: null },
-	noise = { l: null, r: null },
-	filters = { l: null, r: null},
+	sineTones = {
+		l: { osc: null, env: null },
+		r: { osc: null, env: null}
+	},
+	noiseGens = {
+		l: { filter: null, osc: null, env: null },
+		r: { filter: null, osc: null, env: null }
+	},
 	playback = true;
 
 function setup() {
@@ -31,11 +36,7 @@ function setup() {
 	synth.sample = loadSound('audio/synth.mp3', synthReady);
 	rhodes.sample = loadSound('audio/rhodes.mp3', rhodesReady);
 
-	// fsButton = createButton('toggle fullscreen');
-	// fsButton.parent('fullscreen');
-	// fsButton.mousePressed(toggleFullscreen);
-
-	startAudio();
+	setupAudio();
 }
 
 function synthReady() {
@@ -62,47 +63,87 @@ function rhodesReady() {
 	rhodes.delay.process(rhodes.sample, .48, .4, 1440);
 }
 
-// function toggleFullscreen() {
-// 	var fs = fullscreen();
-// 	fullscreen(!fs);
-// }
+function setupAudio() {
+	setSineToneL();
+	setSineToneR();
+	setNoiseL();
+	setNoiseR();
 
-function startAudio() {
-	oscs.l = new p5.Oscillator();
-	oscs.l.setType('sine');
-	oscs.l.start();
-	oscs.l.freq(84);
-	oscs.l.pan(-1);
-	oscs.l.amp(0.2);
+	triggerOscsOn();
+}
 
-	oscs.r = new p5.Oscillator();
-	oscs.r.setType('sine');
-	oscs.r.start();
-	oscs.r.freq(92);
-	oscs.r.pan(1);
-	oscs.r.amp(0.2);
+function setSineToneL() {
+	sineTones.l.env = new p5.Env();
+	sineTones.l.env.setADSR(2.0, 0, 0.2, 2.0);
+	sineTones.l.env.setRange(0.2, 0)
 
-	filters.l = new p5.BandPass();
-	filters.l.freq(358);
-	filters.l.res(28);
+	sineTones.l.osc = new p5.Oscillator();
+	sineTones.l.osc.setType('sine');
+	sineTones.l.osc.start();
+	sineTones.l.osc.freq(84);
+	sineTones.l.osc.pan(-1);
+	sineTones.l.osc.amp(sineTones.l.env);
+}
 
-	filters.r = new p5.BandPass();
-	filters.r.freq(362);
-	filters.r.res(28);
+function setSineToneR() {
+	sineTones.r.env = new p5.Env();
+	sineTones.r.env.setADSR(2.0, 0, 0.2, 2.0);
+	sineTones.r.env.setRange(0.2, 0)
 
-	noise.l = new p5.Noise();
-	noise.l.disconnect();
-	noise.l.connect(filters.l);
-	noise.l.start();
-	noise.l.pan(-0.7);
-	noise.l.amp(0.7);
+	sineTones.r.osc = new p5.Oscillator();
+	sineTones.r.osc.setType('sine');
+	sineTones.r.osc.start();
+	sineTones.r.osc.freq(92);
+	sineTones.r.osc.pan(1);
+	sineTones.r.osc.amp(sineTones.r.env);
+}
 
-	noise.r = new p5.Noise();
-	noise.r.disconnect();
-	noise.r.connect(filters.r);
-	noise.r.start();
-	noise.r.pan(0.7);
-	noise.r.amp(0.7);
+function setNoiseL() {
+	noiseGens.l.env = new p5.Env();
+	noiseGens.l.env.setADSR(2.0, 0, 0.7, 2.0);
+	noiseGens.l.env.setRange(0.7, 0)
+
+	noiseGens.l.filter = new p5.BandPass();
+	noiseGens.l.filter.freq(358);
+	noiseGens.l.filter.res(28);
+
+	noiseGens.l.osc = new p5.Noise();
+	noiseGens.l.osc.disconnect();
+	noiseGens.l.osc.connect(noiseGens.l.filter);
+	noiseGens.l.osc.start();
+	noiseGens.l.osc.pan(-0.8);
+	noiseGens.l.osc.amp(noiseGens.l.env);
+}
+
+function setNoiseR() {
+	noiseGens.r.env = new p5.Env();
+	noiseGens.r.env.setADSR(2.0, 0, 0.7, 2.0);
+	noiseGens.r.env.setRange(0.7, 0)
+
+	noiseGens.r.filter = new p5.BandPass();
+	noiseGens.r.filter.freq(362);
+	noiseGens.r.filter.res(28);
+
+	noiseGens.r.osc = new p5.Noise();
+	noiseGens.r.osc.disconnect();
+	noiseGens.r.osc.connect(noiseGens.r.filter);
+	noiseGens.r.osc.start();
+	noiseGens.r.osc.pan(0.9);
+	noiseGens.r.osc.amp(noiseGens.r.env);
+}
+
+function triggerOscsOn() {
+	sineTones.l.env.triggerAttack();
+	sineTones.r.env.triggerAttack();
+	noiseGens.l.env.triggerAttack();
+	noiseGens.r.env.triggerAttack();
+}
+
+function triggerOscsOff() {
+	sineTones.l.env.triggerRelease();
+	sineTones.r.env.triggerRelease();
+	noiseGens.l.env.triggerRelease();
+	noiseGens.r.env.triggerRelease();
 }
 
 function draw() {
@@ -129,8 +170,8 @@ function draw() {
 			textArea.innerHTML = 'inhale';
 		}
 
-		filters.l.res(res_l);
-		filters.r.res(res_r);
+		noiseGens.l.filter.res(res_l);
+		noiseGens.r.filter.res(res_r);
 
 		translate(x, y, 0);
 		push();
@@ -162,22 +203,14 @@ function keyPressed() {
 		if (playback) { 
 			playback = false;
 
-			oscs.l.amp(0);
-			oscs.r.amp(0);
-
-			noise.l.amp(0);
-			noise.r.amp(0);
+			triggerOscsOff();
 
 			if (synth.loaded) synth.sample.setVolume(0);
 			if (rhodes.loaded) rhodes.sample.setVolume(0);
 		} else {
 			playback = true;
 
-			oscs.l.amp(0.2);
-			oscs.r.amp(0.2);
-
-			noise.l.amp(0.7);
-			noise.r.amp(0.7);
+			triggerOscsOn();
 
 			if (synth.loaded) synth.sample.setVolume(0.1);
 			if (rhodes.loaded) rhodes.sample.setVolume(0.1);
