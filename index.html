@@ -17,9 +17,24 @@
 			top: 0;
 			left: 0;
 			padding: 0.8em;
-			font-size: 0.6em;
+			font-size: 0.8em;
 			line-height: 1.4em;
 			z-index: 100;
+		}
+
+		#fullscreen {
+			position: fixed;
+			top: 0;
+			right: 0;
+			padding: 0.8em;
+			z-index: 100;		
+		}
+
+		#fullscreen button {
+			border: 1px solid white;
+			background: transparent;
+			color: white;
+			cursor: pointer;
 		}
 
 		#canvas-parent {
@@ -50,16 +65,21 @@
 			padding: 0.25em;
 		}
 
+		#controls input {
+			cursor: pointer;
+		}
+
 	</style>
 </head>
 <body>
 	<div id="header">
-		<div>slider sets rotation speed</div>
-		<div>left &amp; right arrow keys set rotation direction</div>
-		<div>spacebar to pause</div>
-		<div>headphones recommended</div>
-		<div id="fullscreen"></div>
+		<p>slider sets rotation speed<br>
+		left &amp; right arrow keys set rotation direction<br>
+		spacebar to pause<br>
+		headphones recommended</p>
 	</div>
+
+	<div id="fullscreen"></div>
 
 	<div id="canvas-parent"></div>
 

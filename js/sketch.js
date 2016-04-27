@@ -22,7 +22,7 @@ function setup() {
 	var canvas = createCanvas(640, 480, WEBGL);
 	canvas.parent('canvas-parent');
 
-	fsButton = createButton('click for fullscreen');
+	fsButton = createButton('toggle fullscreen');
 	fsButton.parent('fullscreen');
 	fsButton.mousePressed(toggleFullscreen);
 
