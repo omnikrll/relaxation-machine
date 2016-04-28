@@ -43,16 +43,16 @@ function setup() {
 	var canvas = createCanvas(640, 480, WEBGL);
 	canvas.parent('canvas-parent');
 
-	fs = hash == '#fullscreen';
+	// fs = hash == '#fullscreen';
 
-	console.log(fs, hash);
-	if (fs) {
-		exitLink.style.display = 'inline';
-		fsLink.style.display = 'none';
-	} else {
-		fsLink.style.display = 'inline';
-		exitLink.style.display = 'none';
-	}
+	// console.log(fs, hash);
+	// if (fs) {
+	// 	exitLink.style.display = 'inline';
+	// 	fsLink.style.display = 'none';
+	// } else {
+	// 	fsLink.style.display = 'inline';
+	// 	exitLink.style.display = 'none';
+	// }
 
 	startButton = createButton('start');
 	startButton.parent('start-button');
