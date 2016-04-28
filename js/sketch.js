@@ -4,6 +4,9 @@ var textArea = document.getElementById('text-area'),
 	buttonContainer = document.getElementById('start-button'),
 	header = document.getElementById('header'),
 	canvasParent = document.getElementById('canvas-parent'),
+	fsLink = document.getElementById('fullscreen'),
+	exitLink = document.getElementById('exit-fullscreen'),
+	hash = window.location.hash,
 	startButton;
 
 // sphere rotation params
@@ -29,13 +32,26 @@ var synth = {
 	noiseGens = {
 		l: { filter: null, osc: null, env: null },
 		r: { filter: null, osc: null, env: null }
-	},
-	playback = false;
+	};
+
+// everything else
+var playback = false,
+	fs = false;
 
 function setup() {
 	colorMode(RGB, 255);
 	var canvas = createCanvas(640, 480, WEBGL);
 	canvas.parent('canvas-parent');
+
+	fs = hash == '#fullscreen';
+
+	if (fs) {
+		exitLink.style.display = 'inline';
+		fsLink.style.display = 'none';
+	} else {
+		fsLink.style.display = 'inline';
+		exitLink.style.display = 'none';
+	}
 
 	startButton = createButton('start');
 	startButton.parent('start-button');
@@ -43,6 +59,8 @@ function setup() {
 }
 
 function startSketch() {
+	fullscreen(fs);
+
 	synth.sample = loadSound('audio/synth.mp3', synthReady);
 	rhodes.sample = loadSound('audio/rhodes.mp3', rhodesReady);
 
