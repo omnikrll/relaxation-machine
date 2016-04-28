@@ -45,6 +45,7 @@ function setup() {
 
 	fs = hash == '#fullscreen';
 
+	console.log(fs, hash);
 	if (fs) {
 		exitLink.style.display = 'inline';
 		fsLink.style.display = 'none';
