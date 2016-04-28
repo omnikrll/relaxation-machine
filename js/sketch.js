@@ -60,9 +60,7 @@ function setup() {
 }
 
 function startSketch() {
-	fullscreen(fs);
-
-	synth.sample = loadSound('audio/synth.mp3', synthReady);
+=	synth.sample = loadSound('audio/synth.mp3', synthReady);
 	rhodes.sample = loadSound('audio/rhodes.mp3', rhodesReady);
 
 	setupAudio();
@@ -70,7 +68,6 @@ function startSketch() {
 	startButton.remove();
 	buttonContainer.parentNode.removeChild(buttonContainer);
 
-	header.style.display = 'block';
 	rateSlider.style.display = 'inline';
 	canvasParent.style.display = 'block';
 
