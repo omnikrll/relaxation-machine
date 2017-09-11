@@ -4,8 +4,6 @@ var textArea = document.getElementById('text-area'),
 	buttonContainer = document.getElementById('start-button'),
 	header = document.getElementById('header'),
 	canvasParent = document.getElementById('canvas-parent'),
-	scoreboardParent = document.getElementById('scoreboard-parent'),
-	scoreboard = document.getElementById('scoreboard'),
 	startButton;
 
 // sphere rotation params
@@ -35,7 +33,6 @@ var synth = {
 
 // everything else
 var playback = false;
-var score = 0;
 
 function setup() {
 	colorMode(RGB, 255);
@@ -59,7 +56,6 @@ function startSketch() {
 	header.style.display = 'none';
 	rateSlider.style.display = 'inline';
 	canvasParent.style.display = 'block';
-	scoreboardParent.style.display = 'block';
 
 	playback = true;
 }
@@ -177,9 +173,6 @@ function draw() {
 
 	if (playback) {
 		speed = rateSlider.value;
-		score = floor(frameCount/100 / speed);		
-
-		scoreboard.innerHTML = score;
 
 		var sine = sin(angle),
 			cosine = cos(angle),
