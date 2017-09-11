@@ -105,7 +105,7 @@ function setSineToneL() {
 	sineTones.l.osc = new p5.Oscillator();
 	sineTones.l.osc.setType('sine');
 	sineTones.l.osc.start();
-	sineTones.l.osc.freq(84);
+	sineTones.l.osc.freq(86);
 	sineTones.l.osc.pan(-1);
 	sineTones.l.osc.amp(sineTones.l.env);
 }
